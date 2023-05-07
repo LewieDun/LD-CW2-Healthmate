@@ -155,7 +155,7 @@ exports.update_goal  = async function (req, res) {
     }); 
   } else {
     try {
-      await aspirations.save(record);
+      await aspirations.updateRecord(record);
       console.log('record -- ', record.category);
       res.redirect(`${record.category}`);
     } catch (err) {
@@ -179,7 +179,7 @@ module.exports.update_aspirations = async function (req, res) {
       aspiration.completed_date = date.toLocaleDateString();
       aspiration.repetitions = parseInt(aspiration.repetitions) + 1; 
     }  
-    const updatedAspiration = await aspirations.save(aspiration);
+    const updatedAspiration = await aspirations.updateRecord(aspiration);
     console.log('updatedAspiration', updatedAspiration);
     res.sendStatus(200);
   } catch (err) {
