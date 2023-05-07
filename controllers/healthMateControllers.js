@@ -87,6 +87,7 @@ exports.show_editGoal = async function (req, res) {
   let description = record.description;
 
   res.render("user/editGoal", { 
+    loggedIn: true,
     id: id,
     title: title,
     category: category,
@@ -149,14 +150,13 @@ exports.update_goal  = async function (req, res) {
 
   if (record.title === '' || record.category === '' || record.description === '' || record.start_date === '' || record.end_date === '') {  
     res.render("user/editGoal", { 
+      loggedIn: true,
       warning: errorCheck,
       id: id,
-      loggedIn: true
     }); 
   } else {
     try {
       await aspirations.updateRecord(record);
-      console.log('record -- ', record.category);
       res.redirect(`${record.category}`);
     } catch (err) {
       console.error(err);
