@@ -22,11 +22,15 @@ exports.login = function (req, res, next) {
       // Return unauthorized error if there is an error
       return res.status(401).send();
     }
+    const warning = 'Incorrect details';
     if (!user) {
       console.log("user ", username, " not found");
       // Render login page if user is not found
-      return res.render("user/login");
+      return res.render("user/login", {
+        warning: warning
+      });
     }
+
     // Compare provided password with stored password
     bcrypt.compare(password, user.password, function (err, result) {
       if (result) {
@@ -41,7 +45,9 @@ exports.login = function (req, res, next) {
         next();
       } else {
         // Render login page if passwords do not match
-        return res.render("user/login");
+        return res.render("user/login", {
+          warning: warning
+        });
       }
     });
   });
