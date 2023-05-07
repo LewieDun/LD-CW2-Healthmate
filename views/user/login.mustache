@@ -1,0 +1,40 @@
+<html>
+<head>
+
+    {{>header}}
+
+    <link rel="stylesheet" href="myCSS.css">
+
+</head>
+<body >
+    <div id="formContent" class="form_content">
+        <!-- Login Form -->
+
+        <h2 class="font_title"> Welcome Back</h2> 
+
+        <a class="font_family_aspirations" href="register"> Register Now </a>
+        <p> {{warning}} </p>
+
+        <br><br>
+        <form method="POST" action="/login">
+            <div>
+                <label for="username" class="font_family">
+                    User Name
+                </label>
+                <div>
+                    <input type="text" class="input_style_two" id="username" name="username" placeholder="username">
+                </div>
+            </div>
+            <div>
+                <label for="password" class="font_family">
+                    Password
+                </label>
+                <div>
+                    <input type="password" class="input_style_two" id="password" name="password" placeholder="password">
+                </div>
+            </div>
+            <br>
+            <input type="submit" class="input_button_three" value="Sign In">
+        </form>
+    </div>
+</body>

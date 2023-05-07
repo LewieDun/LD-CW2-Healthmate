@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {{#loggedIn}}
+      {{>verifiedHeader}}
+  {{/loggedIn}}
+
+  {{^loggedIn}}
+      {{>header}}
+  {{/loggedIn}}
+  
+  <link rel="stylesheet" href="myCSS.css">
+</head>
+
+<body>
+    <div class="container_banner">
+      <div>
+        <div> <img class="imageHeader" src="#"/> </div>
+      </div>
+   </div>
+   <br>
+
+
+    <div class="container_text">
+      <div class="row">
+       <div class="col"> 
+         <h1 class="font_title"> Nutrition </h1>
+       </div>
+      </div>
+   </div>
+
+    <div class="container_text">
+      <div class="row">
+        <div class="col"> 
+        Nutrition plays a vital role in our overall health and well-being. A healthy and balanced diet provides the essential nutrients, vitamins, and minerals needed to maintain good health and reduce the risk of chronic diseases. Consuming a diet rich in fruits, vegetables, whole grains, lean proteins, and healthy fats can help promote optimal health and reduce the risk of conditions such as obesity, diabetes, heart disease, and certain types of cancer. Adequate nutrition is particularly important during periods of growth and development, such as childhood and adolescence, as it can impact physical growth, brain development, and overall health outcomes. Additionally, good nutrition is important throughout adulthood and into old age, as it can help maintain muscle mass and cognitive function, reducing the risk of age-related decline and chronic diseases. <br><br> In addition to providing essential nutrients, a healthy diet can also improve mental health outcomes. Research has shown that consuming a diet high in fruits, vegetables, and whole grains, and low in processed foods and sugars, can reduce the risk of depression and improve overall mental well-being.<br><br> It is important to note that nutrition is not just about what we eat but also how much we eat. Overconsumption of food and excess calorie intake can lead to obesity and related health problems. Additionally, consuming too little food or not getting enough of certain nutrients can lead to malnutrition and related health issues. <br> <br> In summary, a healthy and balanced diet is essential for optimal health and well-being throughout our lives. By prioritizing good nutrition and consuming a variety of nutrient-dense foods, we can reduce the risk of chronic diseases, maintain physical and mental health, and enjoy a higher quality of life.
+       </div>
+      </div>
+   </div>
+
+<div class="container" id="aspirations-container">
+  <div class="row">
+    <div class="col">
+      <h1 class="font_title"> Current Goals </h1>
+      {{#inprogressAspirations}}
+        <div class="goal">
+          <input type="checkbox" name="completed" {{#completed}}checked{{/completed}} onclick="updateAspiration('{{_id}}')"/> 
+          <label class="font_family_aspirations" for="completed"> <strong>{{title}}</strong>  </label><br>
+
+          <div class="goal-details">
+            <p class="font_family_aspirations"><strong>End Date:</strong> {{end_date}}</p>
+            <p class="font_family_aspirations"> {{description}}</p>          
+          </div>
+          <button onclick="editGoal('{{_id}}')" type="button"> <img src="assets/edit.png" class="edit_img"> </button>
+        </div>
+        <br><br>
+      {{/inprogressAspirations}}
+
+      <input type="submit" onclick="location.href='/goalCreator'" class="input_button_three" value="Create a Goal">
+      </div>
+      <br><br>
+    </div>    
+  </div>
+</div>
+
+
+<div class="container" id="aspirations-container">
+  <div class="row">
+    <div class="col">
+      <h1 class="font_title"> Reached Goals </h1>
+      {{#achievedAspirations}}
+        <div class="goal">
+          <input type="checkbox" name="completed" {{#completed}}checked{{/completed}} onclick="updateAspiration('{{_id}}')"/> 
+          <label for="completed" class="font_family_aspirations"><strong> {{title}} </strong></label><br>
+
+        <div class="goal-details">
+            <p class="font_family_aspirations"><strong>Completed Date:</strong> {{completed_date}}</p>
+            <p class="font_family_aspirations"> {{description}}</p>          
+            <p class="font_family_aspirations">Reps: {{repetitions}}</p>
+          </div>
+        </div>
+      {{/achievedAspirations}}
+      <br><br>
+    </div>    
+  </div>
+</div> 
+
+
+<script>
+<!-- JavaScript code -->
+
+function editGoal(id) {
+  window.location.href = `/editGoal?id=${id}`;
+}
+
+function updateAspiration(id) {
+
+  fetch(`/update/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify({completed: true}),
+    headers: {'Content-Type': 'application/json'}
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Record updated successfully');
+      location.reload();
+    } else {
+      console.log('Failed to update record');
+    }
+  })
+  .catch(error => console.error(error));
+}
+</script>
+</body>
+</html> 

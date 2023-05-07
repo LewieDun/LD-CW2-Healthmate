@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+{{#loggedIn}}
+    {{>verifiedHeader}}
+{{/loggedIn}}
+
+{{^loggedIn}}
+    {{>header}}
+{{/loggedIn}}
+  
+   <link rel="stylesheet" href="myCSS.css">
+</head>
+<body>
+
+<div class="container" id="goal-container">
+  <div class="row">
+    <div class="col">
+      <h1> Edit Goal </h1>
+      <br>
+      <button onclick="deleteGoal('{{id}}')">Delete Goal</button>
+        <p> {{warning}} </p>
+          <form method="POST" action="/editGoal" id='goalForm'>
+            <div>
+              <input type="hidden" name="id" value="{{id}}">
+                <label for="title" class="font_family">
+                    Title
+                </label>
+                <div>
+                    <input type="text" class="input_style_two" id="title" name="title" value="{{title}}" >
+                </div>
+            </div>
+            <div>
+            <br>
+            <br>
+                <label for="category" class="font_family">
+                    Category
+                </label>
+                <div>
+                    <select name="category" id="category" class="input_style_two" value="{{category}}">
+                       <option value="fitness">Fitness</option>
+                       <option value="lifestyle">Lifestyle</option>
+                       <option value="nutrition">Nutrition</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+            <br>
+                <label for="desc" class="font_family">
+                    Description
+                </label>
+                <div>
+                    <textarea rows="5" cols="50" wrap="hard" maxlength="250" class="input_style_desc" id="desc" form='goalForm' name="desc">{{description}} </textarea>
+                </div>
+            </div>
+            <div>
+            <br>
+                <label for="start_date" class="font_family">
+                    Start Date
+                </label>
+                <div>
+                    <input type="date" class="input_style_two" id="start_date" name="start_date">
+                </div>
+            </div>
+            <div>
+            <br>
+                <label for="end_date" class="font_family">
+                    End Date
+                </label>
+                <div>
+                    <input type="date" class="input_style_two" id="end_date" name="end_date">
+                </div>
+            </div>
+            <br>
+            <input type="submit" class="input_button_two" value="Update Goal">
+        </form>
+
+    </div>   
+  </div>
+</div> 
+
+
+<script>
+function deleteGoal(id) {
+  const confirmDelete = window.confirm("Are you sure you want to delete this goal?");
+
+  if (confirmDelete) {
+    fetch(`/deleteGoal/${id}`, {
+    method: 'DELETE',
+    headers: {'Content-Type': 'application/json'}
+    })
+    .then(response => {
+    if (response.ok) {
+        console.log('Record deleted successfully');
+        window.location.href = '/';
+    } else {
+        console.log('Failed to delete record');
+    }
+    })
+    .catch(error => console.error(error));
+  }
+}
+</script>
+
+
+</body>
+</html> 

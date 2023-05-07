@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {{#loggedIn}}
+      {{>verifiedHeader}}
+  {{/loggedIn}}
+
+  {{^loggedIn}}
+      {{>header}}
+  {{/loggedIn}}
+  
+  <link rel="stylesheet" href="myCSS.css">
+</head>
+
+<body>
+    <div class="container_banner">
+      <div>
+        <div> <img class="imageHeader" src="#"/> </div>
+      </div>
+   </div>
+   <br>
+
+
+    <div class="container_text">
+      <div class="row">
+       <div class="col"> 
+         <h1 class="font_title"> Lifestyle </h1>
+       </div>
+      </div>
+   </div>
+
+    <div class="container_text">
+      <div class="row">
+        <div class="col"> A healthy lifestyle involves taking care of both our physical and mental health, and it can significantly impact our overall well-being. Mindfulness, meditation, and self-care practices can help us reduce stress and anxiety, leading to improved mental health outcomes. Establishing a consistent sleep schedule and creating a relaxing sleep environment can help us achieve better quality and quantity of sleep, which can improve both our physical and mental health. Consuming a balanced and nutritious diet, engaging in regular physical activity, and avoiding harmful substances can help prevent chronic diseases and improve overall health. Mental exercises, such as reading, puzzles, and learning new skills, can improve cognitive function and delay cognitive decline in older adults. Maintaining positive relationships with loved ones and our community can help combat feelings of loneliness and social isolation, leading to better mental health outcomes.<br><br> Finally, engaging in gratitude practices and seeking out positive experiences can promote happiness and overall life satisfaction. By incorporating these healthy lifestyle habits into our daily routine, we can improve our physical and mental health outcomes and lead a more fulfilling life.<br> <br>In addition to the above mentioned benefits, a healthy lifestyle can also have positive effects on our work and productivity. By taking care of our physical and mental health, we can reduce absenteeism and presenteeism, leading to increased productivity and job satisfaction. Furthermore, a healthy lifestyle can also improve our financial well-being by reducing healthcare costs associated with chronic diseases and improving our ability to work and earn an income. Finally, a healthy lifestyle can also benefit our social and environmental well-being by reducing our carbon footprint, promoting sustainable living, and strengthening our communities.<br> By making conscious decisions to prioritize our physical, mental, and social well-being, we can create a ripple effect that positively impacts not only ourselves but also those around us and the world we live in.
+       </div>
+      </div>
+   </div>
+
+<div class="container" id="aspirations-container">
+  <div class="row">
+    <div class="col">
+      <h1 class="font_title"> Current Goals </h1>
+      {{#inprogressAspirations}}
+        <div class="goal">
+          <input type="checkbox" name="completed" {{#completed}}checked{{/completed}} onclick="updateAspiration('{{_id}}')"/> 
+          <label class="font_family_aspirations" for="completed"> <strong>{{title}}</strong>  </label><br>
+
+          <div class="goal-details">
+            <p class="font_family_aspirations"><strong>End Date:</strong> {{end_date}}</p>
+            <p class="font_family_aspirations"> {{description}}</p>          
+          </div>
+          <button onclick="editGoal('{{_id}}')" type="button"> <img src="assets/edit.png" class="edit_img"> </button>
+        </div>
+        <br><br>
+      {{/inprogressAspirations}}
+
+      <input type="submit" onclick="location.href='/goalCreator'" class="input_button_three" value="Create a Goal">
+      </div>
+      <br><br>
+    </div>    
+  </div>
+</div>
+
+
+<div class="container" id="aspirations-container">
+  <div class="row">
+    <div class="col">
+      <h1 class="font_title"> Reached Goals </h1>
+      {{#achievedAspirations}}
+        <div class="goal">
+          <input type="checkbox" name="completed" {{#completed}}checked{{/completed}} onclick="updateAspiration('{{_id}}')"/> 
+          <label for="completed" class="font_family_aspirations"><strong> {{title}} </strong></label><br>
+
+        <div class="goal-details">
+            <p class="font_family_aspirations"><strong>Completed Date:</strong> {{completed_date}}</p>
+            <p class="font_family_aspirations"> {{description}}</p>          
+            <p class="font_family_aspirations">Reps: {{repetitions}}</p>
+          </div>
+        </div>
+      {{/achievedAspirations}}
+      <br><br>
+    </div>    
+  </div>
+</div> 
+
+
+<script>
+<!-- JavaScript code -->
+
+function editGoal(id) {
+  window.location.href = `/editGoal?id=${id}`;
+}
+
+function updateAspiration(id) {
+
+  fetch(`/update/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify({completed: true}),
+    headers: {'Content-Type': 'application/json'}
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Record updated successfully');
+      location.reload();
+    } else {
+      console.log('Failed to update record');
+    }
+  })
+  .catch(error => console.error(error));
+}
+</script>
+</body>
+</html> 

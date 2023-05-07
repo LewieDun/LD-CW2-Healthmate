@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {{#loggedIn}}
+      {{>verifiedHeader}}
+  {{/loggedIn}}
+
+  {{^loggedIn}}
+      {{>header}}
+  {{/loggedIn}}
+  
+  <link rel="stylesheet" href="myCSS.css">
+</head>
+
+<body>
+    <div class="container_banner">
+      <div>
+        <div> <img class="imageHeader" src="assets/gymheader.png"/> </div>
+      </div>
+   </div>
+   <br>
+
+    <div class="container_text">
+      <div class="row">
+       <div class="col"> 
+         <h1 class="font_title"> Fitness </h1>
+       </div>
+      </div>
+   </div>
+
+    <div class="container_text">
+      <div class="row">
+        <div class="col"> Regular exercise and physical activity can have numerous benefits for our overall health and well-being. One of the primary benefits of fitness is improved cardiovascular health. Exercise can strengthen the heart muscle and improve blood flow throughout the body, which can help to reduce the risk of heart disease, stroke, and other cardiovascular conditions. Additionally, regular exercise can help to build and maintain muscle mass and bone density, which can help to reduce the risk of falls and fractures, especially as we age.<br><br>
+        Exercise has also been shown to reduce the risk of chronic conditions such as diabetes, high blood pressure, and certain types of cancer. By controlling weight through burning calories and building lean muscle mass, exercise can help to reduce the risk of these chronic conditions. Furthermore, exercise can also have a positive impact on mental health. It has been shown to improve mood, reduce symptoms of anxiety and depression, and improve overall mental health and well-being.<br><br>
+        In addition to the benefits mentioned above, exercise can also improve sleep quality and quantity, increase energy levels and physical stamina, and improve cognitive function, particularly in older adults. Incorporating exercise into our daily routines can have a significant impact on our overall health and well-being.<br><br>
+        In conclusion, regular exercise and physical activity can provide numerous benefits for our overall health. By improving cardiovascular health, building and maintaining muscle mass and bone density, reducing the risk of chronic conditions, and improving mental health, sleep quality, energy levels, and cognitive function, exercise can help us lead a healthier and happier life. </div>
+      </div>
+   </div>
+
+<div class="container" id="aspirations-container">
+  <div class="row">
+    <div class="col">
+      <h1 class="font_title"> Current Goals </h1>
+      {{#inprogressAspirations}}
+        <div class="goal">
+          <input type="checkbox" name="completed" {{#completed}}checked{{/completed}} onclick="updateAspiration('{{_id}}')"/> 
+          <label class="font_family_aspirations" for="completed"> <strong>{{title}}</strong>  </label><br>
+
+          <div class="goal-details">
+            <p class="font_family_aspirations"><strong>End Date:</strong> {{end_date}}</p>
+            <p class="font_family_aspirations"> {{description}}</p>          
+          </div>
+          <button onclick="editGoal('{{_id}}')" type="button"> <img src="assets/edit.png" class="edit_img"> </button>
+        </div>
+        <br><br>
+      {{/inprogressAspirations}}
+
+      <input type="submit" onclick="location.href='/goalCreator'" class="input_button_three" value="Create a Goal">
+      </div>
+      <br><br>
+    </div>    
+  </div>
+</div>
+
+
+<div class="container" id="aspirations-container">
+  <div class="row">
+    <div class="col">
+      <h1 class="font_title"> Reached Goals </h1>
+      {{#achievedAspirations}}
+        <div class="goal">
+          <input type="checkbox" name="completed" {{#completed}}checked{{/completed}} onclick="updateAspiration('{{_id}}')"/> 
+          <label for="completed" class="font_family_aspirations"><strong> {{title}} </strong></label><br>
+
+        <div class="goal-details">
+            <p class="font_family_aspirations"><strong>Completed Date:</strong> {{completed_date}}</p>
+            <p class="font_family_aspirations"> {{description}}</p>          
+            <p class="font_family_aspirations">Reps: {{repetitions}}</p>
+          </div>
+        </div>
+      {{/achievedAspirations}}
+      <br><br>
+    </div>    
+  </div>
+</div> 
+
+
+<script>
+<!-- JavaScript code -->
+
+function editGoal(id) {
+  window.location.href = `/editGoal?id=${id}`;
+}
+
+function updateAspiration(id) {
+
+  fetch(`/update/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify({completed: true}),
+    headers: {'Content-Type': 'application/json'}
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log('Record updated successfully');
+      location.reload();
+    } else {
+      console.log('Failed to update record');
+    }
+  })
+  .catch(error => console.error(error));
+}
+</script>
+</body>
+</html> 

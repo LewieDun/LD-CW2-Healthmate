@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {{#loggedIn}}
+      {{>verifiedHeader}}
+  {{/loggedIn}}
+
+  {{^loggedIn}}
+      {{>header}}
+  {{/loggedIn}}
+  
+  <link rel="stylesheet" href="myCSS.css">
+</head>
+
+<body>
+    <div class="container">
+      <div class="row">
+       <div class="col"> 
+         <h1 class="font_title"> About Us! </h1>
+       </div>
+      </div>
+   </div>
+
+    <div class="container_text">
+      <div class="row">
+        <div class="col"> 
+            Welcome to our web application, where we aim to provide you with the tools and resources needed to enhance your overall wellbeing. We understand that wellbeing is fundamental to human health and happiness, and that's why we're committed to helping you achieve your goals.
+            <br><br> Our platform is designed to empower users by providing them with valuable information about wellbeing and enabling them to set their own goals. We believe that wellbeing is subjective and that everyone has their own unique journey, which is why our application is customizable to your individual needs.
+            <br><br> We understand that privacy and data security are of utmost importance, and that's why we've taken great care to ensure that our platform is fully secure and compliant with data protection regulations.
+            <br><br> We believe that by eating a healthy and balanced diet, getting enough sleep and exercise, and creating healthy habits, individuals can improve their sense of wellbeing. Our application is designed to help you achieve these goals by providing you with resources, tools, and support along the way.
+            <br><br> Thank you for choosing our web application to help you enhance your sense of wellbeing. We look forward to supporting you on your journey. 
+        </div>
+      </div>
+   </div>
+
+<div class="container" id="aspirations-container">
+  <div class="row_info">
+
+    <div class="col_info">
+        <img src="assets/aboutus.jpg"/>
+    </div>    
+  </div>
+</div>
+
+</body>
+</html> 

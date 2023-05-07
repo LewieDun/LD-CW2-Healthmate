@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+{{#loggedIn}}
+    {{>verifiedHeader}}
+{{/loggedIn}}
+
+{{^loggedIn}}
+    {{>header}}
+{{/loggedIn}}
+  
+   <link rel="stylesheet" href="myCSS.css">
+</head>
+
+<body>
+
+<div class="container" id="goal-container">
+  <div class="row">
+    <div class="col">
+      <h1> Goal Creator </h1 >
+      <br>
+      <p> {{warning}} </p>
+          <form method="POST" action="/goalCreator" id='goalForm'>
+            <div>
+                <label for="title" class="font_family">
+                    Title
+                </label>
+                <div>
+                    <input type="text" class="input_style_two" id="title" name="title" placeholder="Goal title">
+                </div>
+            </div>
+            <div>
+            <br>
+            <br>
+                <label for="category" class="font_family">
+                    Category
+                </label>
+                <div>
+                    <select name="category" id="category" class="input_style_two">
+                       <option value="fitness">Fitness</option>
+                       <option value="lifestyle">Lifestyle</option>
+                       <option value="nutrition">Nutrition</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+            <br>
+                <label for="desc" class="font_family">
+                    Description
+                </label>
+                <div>
+                    <textarea rows="5" cols="50" wrap="hard" maxlength="250" class="input_style_desc" id="desc" form='goalForm' name="desc"> </textarea>
+                </div>
+            </div>
+            <div>
+            <br>
+                <label for="start_date" class="font_family">
+                    Start Date
+                </label>
+                <div>
+                    <input type="date" class="input_style_two" id="start_date" name="start_date">
+                </div>
+            </div>
+            <div>
+            <br>
+                <label for="end_date" class="font_family">
+                    End Date
+                </label>
+                <div>
+                    <input type="date" class="input_style_two" id="end_date" name="end_date">
+                </div>
+            </div>
+            <br>
+            <input type="submit" class="input_button_two" value="Create Goal">
+        </form>
+
+    </div>   
+  </div>
+</div> 
+
+
+<script>
+<!-- JavaScript code -->
+
+
+</script>
+</body>
+</html> 
+
