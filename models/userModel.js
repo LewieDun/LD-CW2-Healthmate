@@ -39,7 +39,7 @@ class UserDAO {
               lastname: "Duncan",
               user: "Lewie",
               password:
-                "$2a$12$b6Uu6KWKxSHm95lxsLmy7uxMI.BwI0te2tLye7NQRNQMpctTH5fnG",
+                "$2a$10$4zySBmFlLZKyBuH1ng4j7OZSGmEjiSTphVOFyEnHE8gKkgaeQf0EK",
             },
             (err) => {
               if (err) {
